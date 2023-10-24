@@ -182,7 +182,7 @@ class Serialport {
       // Ensure `path` adheres to Tauri event name requirements
       const regex = /[^a-zA-Z0-9\-/:_]/g;
       const sanitizedPath = this.options.path.replace(regex, '-');
-      let readEvent = 'plugin-serialport-read-' + this.options.path;
+      let readEvent = 'plugin-serialport-read-' + sanitizedPath;
       this.unListen = await appWindow.listen<ReadDataResult>(
         readEvent,
         ({ payload }) => {
