@@ -55,7 +55,7 @@ declare class Serialport {
      */
     static closeAll(): Promise<void>;
     /**
-     * @description:  Cancel serial port monitoring
+     * @description: Cancel serial port monitoring
      * @return {Promise<void>}
      */
     cancelListen(): Promise<void>;

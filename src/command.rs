@@ -7,6 +7,7 @@ use std::sync::mpsc::{Receiver, Sender, TryRecvError};
 use std::thread;
 use std::time::Duration;
 use tauri::{command, AppHandle, Runtime, State, Window};
+use regex::Regex;
 
 /// `get_worksheet` according to `path` and `sheet_name` get the file sheet instance
 fn get_serialport<T, F: FnOnce(&mut SerialportInfo) -> Result<T, Error>>(
@@ -280,7 +281,10 @@ pub fn read<R: Runtime>(
             println!("Starting to read serial port {}!", &path);
             match serialport_info.serialport.try_clone() {
                 Ok(mut serial) => {
-                    let read_event = format!("plugin-serialport-read-{}", &path);
+                    // Ensure `path` adheres to Tauri event name requirements
+                    let re = Regex::new(r"[^a-zA-Z0-9\-/:_]").unwrap();
+                    let sanitized_path = re.replace_all(&path, "-");
+                    let read_event = format!("plugin-serialport-read-{}", sanitized_path);
                     let (tx, rx): (Sender<usize>, Receiver<usize>) = mpsc::channel();
                     serialport_info.sender = Some(tx);
                     thread::spawn(move || loop {

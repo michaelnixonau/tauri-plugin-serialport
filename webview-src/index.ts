@@ -179,6 +179,9 @@ class Serialport {
   async listen(fn: (...args: any[]) => void, isDecode = true): Promise<void> {
     try {
       await this.cancelListen();
+      // Ensure `path` adheres to Tauri event name requirements
+      const regex = /[^a-zA-Z0-9\-/:_]/g;
+      const sanitizedPath = this.options.path.replace(regex, '-');
       let readEvent = 'plugin-serialport-read-' + this.options.path;
       this.unListen = await appWindow.listen<ReadDataResult>(
         readEvent,
