@@ -1,6 +1,6 @@
 [package]
 name = "tauri-plugin-serialport"
-version = "0.0.4"
+version = "0.0.5"
 authors = [ "lzhida" ]
 description = "A tauri plugin developed based on Serialport."
 edition = "2021"
@@ -8,8 +8,8 @@ rust-version = "1.57"
 exclude = ["/examples", "/webview-dist", "/webview-src", "node_modules"]
 
 [dependencies]
-tauri = { version = "1.0.2" }
+tauri = { version = "2" }
 serde = "1.0"
 thiserror = "1.0"
-serialport = {version = "4.2.0"}
+serialport = {version = "4.7"}
 regex = "1.0"
