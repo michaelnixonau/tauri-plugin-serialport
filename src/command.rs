@@ -6,7 +6,7 @@ use std::sync::mpsc;
 use std::sync::mpsc::{Receiver, Sender, TryRecvError};
 use std::thread;
 use std::time::Duration;
-use tauri::{command, AppHandle, Runtime, State, Window};
+use tauri::{command, AppHandle, Runtime, State, WebviewWindow, Emitter};
 use regex::Regex;
 
 /// `get_worksheet` according to `path` and `sheet_name` get the file sheet instance
@@ -112,7 +112,7 @@ pub fn available_ports() -> Vec<String> {
 #[command]
 pub async fn cancel_read<R: Runtime>(
     _app: AppHandle<R>,
-    _window: Window<R>,
+    _window: WebviewWindow<R>,
     state: State<'_, SerialportState>,
     path: String,
 ) -> Result<(), Error> {
@@ -136,7 +136,7 @@ pub async fn cancel_read<R: Runtime>(
 #[command]
 pub fn close<R: Runtime>(
     _app: AppHandle<R>,
-    _window: Window<R>,
+    _window: WebviewWindow<R>,
     state: State<'_, SerialportState>,
     path: String,
 ) -> Result<(), Error> {
@@ -158,7 +158,7 @@ pub fn close<R: Runtime>(
 #[command]
 pub fn close_all<R: Runtime>(
     _app: AppHandle<R>,
-    _window: Window<R>,
+    _window: WebviewWindow<R>,
     state: State<'_, SerialportState>,
 ) -> Result<(), Error> {
     match state.serialports.lock() {
@@ -187,7 +187,7 @@ pub fn close_all<R: Runtime>(
 #[command]
 pub fn force_close<R: Runtime>(
     _app: AppHandle<R>,
-    _window: Window<R>,
+    _window: WebviewWindow<R>,
     state: State<'_, SerialportState>,
     path: String,
 ) -> Result<(), Error> {
@@ -220,7 +220,7 @@ pub fn force_close<R: Runtime>(
 pub fn open<R: Runtime>(
     _app: AppHandle<R>,
     state: State<'_, SerialportState>,
-    _window: Window<R>,
+    _window: WebviewWindow<R>,
     path: String,
     baud_rate: u32,
     data_bits: Option<usize>,
@@ -267,7 +267,7 @@ pub fn open<R: Runtime>(
 #[command]
 pub fn read<R: Runtime>(
     _app: AppHandle<R>,
-    window: Window<R>,
+    window: WebviewWindow<R>,
     state: State<'_, SerialportState>,
     path: String,
     timeout: Option<u64>,
@@ -338,7 +338,7 @@ pub fn read<R: Runtime>(
 #[command]
 pub fn write<R: Runtime>(
     _app: AppHandle<R>,
-    _window: Window<R>,
+    _window: WebviewWindow<R>,
     state: State<'_, SerialportState>,
     path: String,
     value: String,
@@ -362,7 +362,7 @@ pub fn write<R: Runtime>(
 #[command]
 pub fn write_binary<R: Runtime>(
     _app: AppHandle<R>,
-    _window: Window<R>,
+    _window: WebviewWindow<R>,
     state: State<'_, SerialportState>,
     path: String,
     value: Vec<u8>,
