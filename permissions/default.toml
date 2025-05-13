@@ -1,0 +1,15 @@
+"$schema" = "schemas/schema.json"
+
+[default]
+description = "Allows using serialport functionality"
+permissions = [
+    "allow-available-ports",
+    "allow-cancel-read",
+    "allow-close",
+    "allow-close-all",
+    "allow-force-close",
+    "allow-open",
+    "allow-read",
+    "allow-write",
+    "allow-write-binary"
+]

@@ -1,6 +1,7 @@
 [package]
 name = "tauri-plugin-serialport"
-version = "0.0.6"
+links = "tauri-plugin-serialport"
+version = "0.0.7"
 authors = [ "lzhida" ]
 description = "A tauri plugin developed based on Serialport."
 edition = "2021"
@@ -13,3 +14,6 @@ serde = "1.0"
 thiserror = "1.0"
 serialport = {version = "4.7"}
 regex = "1.0"
+
+[build-dependencies]
+tauri-plugin = "2.0"

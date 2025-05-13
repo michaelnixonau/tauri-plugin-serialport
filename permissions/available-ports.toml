@@ -1,0 +1,5 @@
+"$schema" = "schemas/schema.json"
+[[permission]]
+identifier = "allow-available-ports"
+description = "Enables the available_ports command."
+commands.allow = ["available_ports"]

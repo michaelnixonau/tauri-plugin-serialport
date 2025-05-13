@@ -1,0 +1,5 @@
+"$schema" = "schemas/schema.json"
+[[permission]]
+identifier = "allow-cancel-read"
+description = "Enables the cancel_read command."
+commands.allow = ["cancel_read"]

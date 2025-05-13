@@ -1,6 +1,6 @@
 import { UnlistenFn } from '@tauri-apps/api/event';
-import { invoke } from '@tauri-apps/api/tauri';
-import { appWindow } from '@tauri-apps/api/window';
+import { invoke } from '@tauri-apps/api/core';
+import { getCurrentWindow } from "@tauri-apps/api/window";
 
 export interface InvokeResult {
   code: number;
@@ -45,6 +45,7 @@ class Serialport {
   encoding: string;
   options: Options;
   size: number;
+  private appWindow = getCurrentWindow();
 
   constructor(options: SerialportOptions) {
     this.isOpen = false;
@@ -183,7 +184,7 @@ class Serialport {
       const regex = /[^a-zA-Z0-9\-/:_]/g;
       const sanitizedPath = this.options.path.replace(regex, '-');
       let readEvent = 'plugin-serialport-read-' + sanitizedPath;
-      this.unListen = await appWindow.listen<ReadDataResult>(
+      this.unListen = await this.appWindow.listen<ReadDataResult>(
         readEvent,
         ({ payload }) => {
           try {

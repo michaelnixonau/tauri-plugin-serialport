@@ -37,6 +37,7 @@ declare class Serialport {
     encoding: string;
     options: Options;
     size: number;
+    private appWindow;
     constructor(options: SerialportOptions);
     /**
      * @description: Get serial port list
